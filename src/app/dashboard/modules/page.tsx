@@ -17,7 +17,7 @@ export default function ModulesPage() {
       icon: Mail,
       glow: "cyan" as const,
       difficulty: "Beginner",
-      path: "/dashboard/modules/phishing"
+      path: "/modules/phishing"
     },
     {
       id: "bruteforce",
@@ -26,7 +26,7 @@ export default function ModulesPage() {
       icon: Key,
       glow: "purple" as const,
       difficulty: "Intermediate",
-      path: "/dashboard/modules/bruteforce"
+      path: "/modules/bruteforce"
     },
     {
       id: "xss",
@@ -35,7 +35,7 @@ export default function ModulesPage() {
       icon: Code,
       glow: "purple" as const,
       difficulty: "Advanced",
-      path: "/dashboard/modules/xss"
+      path: "/modules/xss"
     },
     {
       id: "social-engineering",
@@ -44,7 +44,7 @@ export default function ModulesPage() {
       icon: MessageSquare,
       glow: "cyan" as const,
       difficulty: "Expert",
-      path: "/dashboard/modules/social-engineering"
+      path: "/modules/social-engineering"
     }
   ];
 
