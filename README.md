@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./src/app/icon.jpg" alt="CyberSim Logo" width="120" height="120" style="border-radius: 20%; margin-bottom: 20px;" />
+  <img src="./src/app/icon.png" alt="CyberSim Logo" width="120" height="120" style="border-radius: 20%; margin-bottom: 20px;" />
   
   # CYBERSIM
   
