@@ -96,88 +96,112 @@ export default function RegisterPage() {
               </motion.div>
             )}
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-1.5 col-span-2">
-                <label className="text-xs font-mono uppercase tracking-widest text-accent ml-1">Full Legal Name</label>
-                <div className="relative flex items-center group">
-                  <User className="absolute left-3 w-4 h-4 text-accent/50 group-focus-within:text-accent transition-colors" />
-                  <input
-                    type="text"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    required
-                    disabled={isLoading}
-                    placeholder="John Doe"
-                    className="w-full bg-[#020202] border border-accent/30 rounded pl-10 pr-4 py-3 font-mono text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-accent focus:shadow-[0_0_15px_rgba(0,240,255,0.15),inset_0_0_10px_rgba(0,240,255,0.05)] transition-all disabled:opacity-50"
-                  />
-                </div>
+            <div className="grid grid-cols-2 gap-x-4">
+              <div className="form-control group col-span-2">
+                <User className="absolute left-0 top-2.5 w-4 h-4 text-accent/50 group-focus-within:text-accent transition-colors z-10" />
+                <input
+                  type="text"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  required
+                  disabled={isLoading}
+                  className="pl-8 disabled:opacity-50"
+                />
+                <label>
+                  <span style={{ transitionDelay: '0ms' }}>F</span>
+                  <span style={{ transitionDelay: '50ms' }}>u</span>
+                  <span style={{ transitionDelay: '100ms' }}>l</span>
+                  <span style={{ transitionDelay: '150ms' }}>l</span>
+                  <span style={{ transitionDelay: '200ms' }}>&nbsp;</span>
+                  <span style={{ transitionDelay: '250ms' }}>N</span>
+                  <span style={{ transitionDelay: '300ms' }}>a</span>
+                  <span style={{ transitionDelay: '350ms' }}>m</span>
+                  <span style={{ transitionDelay: '400ms' }}>e</span>
+                </label>
               </div>
 
-              <div className="space-y-1.5 col-span-2">
-                <label className="text-xs font-mono uppercase tracking-widest text-accent ml-1">Date of Birth</label>
-                <div className="relative flex items-center group">
-                  <input
-                    type="date"
-                    name="dateOfBirth"
-                    value={formData.dateOfBirth}
-                    onChange={handleChange}
-                    required
-                    disabled={isLoading}
-                    className="w-full bg-[#020202] border border-accent/30 rounded px-4 py-3 font-mono text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-accent focus:shadow-[0_0_15px_rgba(0,240,255,0.15),inset_0_0_10px_rgba(0,240,255,0.05)] transition-all disabled:opacity-50 [color-scheme:dark]"
-                  />
-                </div>
+              <div className="form-control group col-span-2">
+                <input
+                  type="date"
+                  name="dateOfBirth"
+                  value={formData.dateOfBirth}
+                  onChange={handleChange}
+                  required
+                  disabled={isLoading}
+                  className="disabled:opacity-50 [color-scheme:dark]"
+                />
+                <label style={{ left: 0 }}>
+                  <span style={{ transitionDelay: '0ms' }}>D</span>
+                  <span style={{ transitionDelay: '50ms' }}>O</span>
+                  <span style={{ transitionDelay: '100ms' }}>B</span>
+                </label>
               </div>
 
-              <div className="space-y-1.5 col-span-2">
-                <label className="text-xs font-mono uppercase tracking-widest text-accent ml-1">Username</label>
-                <div className="relative flex items-center group">
-                  <User className="absolute left-3 w-4 h-4 text-accent/50 group-focus-within:text-accent transition-colors" />
-                  <input
-                    type="text"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    required
-                    disabled={isLoading}
-                    placeholder="Operative ID"
-                    className="w-full bg-[#020202] border border-accent/30 rounded pl-10 pr-4 py-3 font-mono text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-accent focus:shadow-[0_0_15px_rgba(0,240,255,0.15),inset_0_0_10px_rgba(0,240,255,0.05)] transition-all disabled:opacity-50"
-                  />
-                </div>
+              <div className="form-control group col-span-2">
+                <User className="absolute left-0 top-2.5 w-4 h-4 text-accent/50 group-focus-within:text-accent transition-colors z-10" />
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                  disabled={isLoading}
+                  className="pl-8 disabled:opacity-50"
+                />
+                <label>
+                  <span style={{ transitionDelay: '0ms' }}>U</span>
+                  <span style={{ transitionDelay: '50ms' }}>s</span>
+                  <span style={{ transitionDelay: '100ms' }}>e</span>
+                  <span style={{ transitionDelay: '150ms' }}>r</span>
+                  <span style={{ transitionDelay: '200ms' }}>n</span>
+                  <span style={{ transitionDelay: '250ms' }}>a</span>
+                  <span style={{ transitionDelay: '300ms' }}>m</span>
+                  <span style={{ transitionDelay: '350ms' }}>e</span>
+                </label>
               </div>
 
-              <div className="space-y-1.5 col-span-2">
-                <label className="text-xs font-mono uppercase tracking-widest text-accent ml-1">Email</label>
-                <div className="relative flex items-center group">
-                  <Mail className="absolute left-3 w-4 h-4 text-accent/50 group-focus-within:text-accent transition-colors" />
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    disabled={isLoading}
-                    placeholder="transmission@grid.net"
-                    className="w-full bg-[#020202] border border-accent/30 rounded pl-10 pr-4 py-3 font-mono text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-accent focus:shadow-[0_0_15px_rgba(0,240,255,0.15),inset_0_0_10px_rgba(0,240,255,0.05)] transition-all disabled:opacity-50"
-                  />
-                </div>
+              <div className="form-control group col-span-2">
+                <Mail className="absolute left-0 top-2.5 w-4 h-4 text-accent/50 group-focus-within:text-accent transition-colors z-10" />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  disabled={isLoading}
+                  className="pl-8 disabled:opacity-50"
+                />
+                <label>
+                  <span style={{ transitionDelay: '0ms' }}>E</span>
+                  <span style={{ transitionDelay: '50ms' }}>m</span>
+                  <span style={{ transitionDelay: '100ms' }}>a</span>
+                  <span style={{ transitionDelay: '150ms' }}>i</span>
+                  <span style={{ transitionDelay: '200ms' }}>l</span>
+                </label>
               </div>
 
-              <div className="space-y-1.5 col-span-2">
-                <label className="text-xs font-mono uppercase tracking-widest text-accent ml-1">Password</label>
-                <div className="relative flex items-center group">
-                  <Lock className="absolute left-3 w-4 h-4 text-accent/50 group-focus-within:text-accent transition-colors" />
-                  <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                    disabled={isLoading}
-                    placeholder="••••••••"
-                    className="w-full bg-[#020202] border border-accent/30 rounded pl-10 pr-4 py-3 font-mono text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-accent focus:shadow-[0_0_15px_rgba(0,240,255,0.15),inset_0_0_10px_rgba(0,240,255,0.05)] transition-all disabled:opacity-50"
-                  />
-                </div>
+              <div className="form-control group col-span-2">
+                <Lock className="absolute left-0 top-2.5 w-4 h-4 text-accent/50 group-focus-within:text-accent transition-colors z-10" />
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  disabled={isLoading}
+                  className="pl-8 disabled:opacity-50"
+                />
+                <label>
+                  <span style={{ transitionDelay: '0ms' }}>P</span>
+                  <span style={{ transitionDelay: '50ms' }}>a</span>
+                  <span style={{ transitionDelay: '100ms' }}>s</span>
+                  <span style={{ transitionDelay: '150ms' }}>s</span>
+                  <span style={{ transitionDelay: '200ms' }}>w</span>
+                  <span style={{ transitionDelay: '250ms' }}>o</span>
+                  <span style={{ transitionDelay: '300ms' }}>r</span>
+                  <span style={{ transitionDelay: '350ms' }}>d</span>
+                </label>
               </div>
             </div>
 

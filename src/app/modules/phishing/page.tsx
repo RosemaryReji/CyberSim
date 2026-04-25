@@ -22,6 +22,8 @@ export default function PhishingSimulation() {
     explanation: string;
   } | null>(null);
 
+  const [activeFolder, setActiveFolder] = useState<"inbox" | "spam" | "sent" | "trash">("inbox");
+
   const selectedEmail = phishingEmails.find(e => e.id === selectedEmailId);
 
   const handleClassify = (choice: "safe" | "phishing") => {
@@ -75,6 +77,13 @@ export default function PhishingSimulation() {
 
   const totalEmails = phishingEmails.length;
   const allClassified = Object.keys(classifications).length === totalEmails;
+
+  // Filter emails based on active folder
+  const displayedEmails = phishingEmails.filter(email => {
+    if (activeFolder === "inbox") return true;
+    if (activeFolder === "spam") return classifications[email.id] === "phishing";
+    return false; // sent and trash are always empty
+  });
 
   return (
     <div className="h-[calc(100vh-8rem)] flex flex-col gap-4 max-w-7xl mx-auto relative">
@@ -191,28 +200,49 @@ export default function PhishingSimulation() {
             <span className="text-xs font-mono uppercase tracking-widest text-accent/50">Folders</span>
           </div>
           <nav className="flex-1 py-2">
-            <button className="w-full flex items-center justify-between px-4 py-3 bg-accent/10 text-accent border-l-2 border-accent transition-colors">
+            <button 
+              onClick={() => setActiveFolder("inbox")}
+              className={`w-full flex items-center justify-between px-4 py-3 transition-colors border-l-2 ${activeFolder === 'inbox' ? 'bg-accent/10 text-accent border-accent' : 'text-foreground/60 hover:bg-white/5 hover:text-white border-transparent'}`}
+            >
               <div className="flex items-center gap-3 text-sm font-mono uppercase tracking-wider">
                 <Inbox className="w-4 h-4" /> Inbox
               </div>
-              <span className="text-xs font-bold bg-accent/20 px-2 py-0.5 rounded shadow-[0_0_5px_rgba(0,240,255,0.2)]">
+              <span className={`text-xs font-bold px-2 py-0.5 rounded ${activeFolder === 'inbox' ? 'bg-accent/20 shadow-[0_0_5px_rgba(0,240,255,0.2)]' : 'bg-white/10'}`}>
                 {totalEmails - Object.keys(classifications).length}
               </span>
             </button>
-            <button className="w-full flex items-center justify-between px-4 py-3 text-foreground/60 hover:bg-white/5 hover:text-white transition-colors border-l-2 border-transparent">
+            <button 
+              onClick={() => setActiveFolder("spam")}
+              className={`w-full flex items-center justify-between px-4 py-3 transition-colors border-l-2 ${activeFolder === 'spam' ? 'bg-accent/10 text-accent border-accent' : 'text-foreground/60 hover:bg-white/5 hover:text-white border-transparent'}`}
+            >
               <div className="flex items-center gap-3 text-sm font-mono uppercase tracking-wider">
                 <AlertTriangle className="w-4 h-4" /> Spam
               </div>
+              <span className={`text-xs font-bold px-2 py-0.5 rounded ${activeFolder === 'spam' ? 'bg-accent/20 shadow-[0_0_5px_rgba(0,240,255,0.2)]' : 'bg-white/10'}`}>
+                {Object.values(classifications).filter(c => c === 'phishing').length}
+              </span>
             </button>
-            <button className="w-full flex items-center justify-between px-4 py-3 text-foreground/60 hover:bg-white/5 hover:text-white transition-colors border-l-2 border-transparent">
+            <button 
+              onClick={() => setActiveFolder("sent")}
+              className={`w-full flex items-center justify-between px-4 py-3 transition-colors border-l-2 ${activeFolder === 'sent' ? 'bg-accent/10 text-accent border-accent' : 'text-foreground/60 hover:bg-white/5 hover:text-white border-transparent'}`}
+            >
               <div className="flex items-center gap-3 text-sm font-mono uppercase tracking-wider">
                 <Send className="w-4 h-4" /> Sent
               </div>
+              <span className={`text-xs font-bold px-2 py-0.5 rounded ${activeFolder === 'sent' ? 'bg-accent/20 shadow-[0_0_5px_rgba(0,240,255,0.2)]' : 'bg-white/10'}`}>
+                0
+              </span>
             </button>
-            <button className="w-full flex items-center justify-between px-4 py-3 text-foreground/60 hover:bg-white/5 hover:text-white transition-colors border-l-2 border-transparent">
+            <button 
+              onClick={() => setActiveFolder("trash")}
+              className={`w-full flex items-center justify-between px-4 py-3 transition-colors border-l-2 ${activeFolder === 'trash' ? 'bg-accent/10 text-accent border-accent' : 'text-foreground/60 hover:bg-white/5 hover:text-white border-transparent'}`}
+            >
               <div className="flex items-center gap-3 text-sm font-mono uppercase tracking-wider">
                 <Trash2 className="w-4 h-4" /> Trash
               </div>
+              <span className={`text-xs font-bold px-2 py-0.5 rounded ${activeFolder === 'trash' ? 'bg-accent/20 shadow-[0_0_5px_rgba(0,240,255,0.2)]' : 'bg-white/10'}`}>
+                0
+              </span>
             </button>
           </nav>
         </div>
@@ -223,34 +253,41 @@ export default function PhishingSimulation() {
             <span className="text-xs font-mono uppercase tracking-widest text-accent/50">Messages</span>
           </div>
           <div className="flex-1 overflow-y-auto">
-            {phishingEmails.map((email) => {
-              const isClassified = classifications[email.id];
-              return (
-                <div 
-                  key={email.id}
-                  className={`p-4 border-b border-white/5 cursor-pointer transition-colors ${selectedEmailId === email.id ? 'bg-accent/5 border-l-2 border-l-accent' : 'hover:bg-white/5 border-l-2 border-l-transparent'} ${isClassified ? 'opacity-50' : ''}`}
-                  onClick={() => setSelectedEmailId(email.id)}
-                >
-                  <div className="flex justify-between items-baseline mb-1">
-                    <span className={`text-sm font-medium truncate pr-2 ${!isClassified && email.isUnread ? 'text-white' : 'text-foreground/70'}`}>
-                      {email.senderName}
-                    </span>
-                    <span className="text-[10px] font-mono text-accent/70">{email.date}</span>
-                  </div>
-                  <p className={`text-xs truncate mb-1 ${!isClassified && email.isUnread ? 'text-accent font-bold tracking-wide' : 'text-foreground/50'}`}>
-                    {email.subject}
-                  </p>
-                  <div className="flex justify-between items-center mt-2">
-                    <p className="text-xs text-foreground/40 truncate pr-2">
-                      {email.body}
+            {displayedEmails.length > 0 ? (
+              displayedEmails.map((email) => {
+                const isClassified = classifications[email.id];
+                return (
+                  <div 
+                    key={email.id}
+                    className={`p-4 border-b border-white/5 cursor-pointer transition-colors ${selectedEmailId === email.id ? 'bg-accent/5 border-l-2 border-l-accent' : 'hover:bg-white/5 border-l-2 border-l-transparent'} ${isClassified ? 'opacity-50' : ''}`}
+                    onClick={() => setSelectedEmailId(email.id)}
+                  >
+                    <div className="flex justify-between items-baseline mb-1">
+                      <span className={`text-sm font-medium truncate pr-2 ${!isClassified && email.isUnread ? 'text-white' : 'text-foreground/70'}`}>
+                        {email.senderName}
+                      </span>
+                      <span className="text-[10px] font-mono text-accent/70">{email.date}</span>
+                    </div>
+                    <p className={`text-xs truncate mb-1 ${!isClassified && email.isUnread ? 'text-accent font-bold tracking-wide' : 'text-foreground/50'}`}>
+                      {email.subject}
                     </p>
-                    {isClassified && (
-                      <CheckCircle className={`w-3 h-3 shrink-0 ${classifications[email.id] === 'safe' ? 'text-green-500' : 'text-red-500'}`} />
-                    )}
+                    <div className="flex justify-between items-center mt-2">
+                      <p className="text-xs text-foreground/40 truncate pr-2">
+                        {email.body}
+                      </p>
+                      {isClassified && (
+                        <CheckCircle className={`w-3 h-3 shrink-0 ${classifications[email.id] === 'safe' ? 'text-green-500' : 'text-red-500'}`} />
+                      )}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })
+            ) : (
+              <div className="p-8 text-center text-foreground/30 font-mono text-sm">
+                <Mail className="w-8 h-8 mx-auto mb-2 opacity-30" />
+                No messages in this folder.
+              </div>
+            )}
           </div>
         </div>
 

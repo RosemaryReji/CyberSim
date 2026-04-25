@@ -20,6 +20,8 @@ const jetbrainsMono = JetBrains_Mono({
 import NavigationBar from "@/components/layout/NavigationBar";
 import TrpcProvider from "@/lib/trpc/Provider";
 import AuthProvider from "@/components/providers/AuthProvider";
+import CustomCursor from "@/components/ui/CustomCursor";
+import SplashCursor from "@/components/ui/SplashCursor";
 
 export const metadata: Metadata = {
   title: "CyberSim",
@@ -37,6 +39,8 @@ export default function RootLayout({
       className={`${orbitron.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
       <body className="antialiased font-sans bg-background text-foreground flex flex-col min-h-screen">
+        <CustomCursor />
+        <SplashCursor RAINBOW_MODE={false} COLOR="#00F0FF" />
         <AuthProvider>
           <TrpcProvider>
             <NavigationBar />

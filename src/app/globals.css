@@ -19,3 +19,54 @@ body {
   background-color: var(--background);
   color: var(--foreground);
 }
+
+/* Animated Form Control (from Uiverse.io) */
+.form-control {
+  position: relative;
+  margin: 10px 0 30px;
+  width: 100%;
+}
+
+.form-control input {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 2px rgba(255, 255, 255, 0.2) solid;
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 14px;
+  color: #fff;
+  font-family: var(--font-mono);
+}
+
+.form-control input:focus,
+.form-control input:valid {
+  outline: 0;
+  border-bottom-color: var(--color-accent-alt);
+  box-shadow: 0 1px 10px -2px var(--color-accent-alt);
+}
+
+.form-control label {
+  position: absolute;
+  top: 10px;
+  left: 30px; /* Offset for the icon */
+  pointer-events: none;
+}
+
+.form-control label span {
+  display: inline-block;
+  font-size: 12px;
+  min-width: 5px;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.form-control input:focus+label span,
+.form-control input:valid+label span {
+  color: var(--color-accent-alt);
+  transform: translateY(-25px);
+  text-shadow: 0 0 5px rgba(122,95,255,0.5);
+}
