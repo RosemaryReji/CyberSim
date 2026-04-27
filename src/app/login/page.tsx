@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { LogIn, Mail, Lock, AlertTriangle } from "lucide-react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect } from "react";
 
 const FingerprintScanner = () => {
   return (
@@ -46,8 +47,12 @@ const FingerprintScanner = () => {
   );
 };
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const { status } = useSession();
+  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -76,7 +81,8 @@ export default function LoginPage() {
         throw new Error("Invalid access credentials. Connection refused.");
       }
 
-      router.push("/");
+      router.refresh();
+      router.push(callbackUrl);
     } catch (err: any) {
       setError(err.message);
       setIsLoading(false);
@@ -185,5 +191,13 @@ export default function LoginPage() {
         </Card>
       </motion.div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-accent">Loading...</div>}>
+      <LoginForm />
+    </Suspense>
   );
 }

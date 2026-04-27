@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Terminal } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export function HeroSection() {
   const router = useRouter();
+  const { data: session } = useSession();
 
   return (
     <div className="relative min-h-[calc(100vh-8rem)] flex items-center justify-center overflow-hidden rounded-2xl border border-accent/10 bg-[#020202]">
@@ -66,7 +68,13 @@ export function HeroSection() {
             variant="primary" 
             size="lg" 
             className="w-full sm:w-auto"
-            onClick={() => router.push("/dashboard/modules")}
+            onClick={() => {
+              if (session) {
+                router.push("/dashboard/modules");
+              } else {
+                router.push("/login?callbackUrl=/dashboard/modules");
+              }
+            }}
           >
             Initialize Training
           </Button>
@@ -74,7 +82,13 @@ export function HeroSection() {
             variant="secondary" 
             size="lg" 
             className="w-full sm:w-auto"
-            onClick={() => router.push("/dashboard")}
+            onClick={() => {
+              if (session) {
+                router.push("/dashboard");
+              } else {
+                router.push("/login?callbackUrl=/dashboard");
+              }
+            }}
           >
             Access Dashboard
           </Button>
