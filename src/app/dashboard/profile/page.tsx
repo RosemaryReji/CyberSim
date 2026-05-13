@@ -5,6 +5,8 @@ import { User, Shield, Award } from "lucide-react";
 import { trpc } from "@/lib/trpc/client";
 import { useSession } from "next-auth/react";
 
+export const dynamic = 'force-dynamic';
+
 export default function ProfilePage() {
   const { data: stats } = trpc.getUserStats.useQuery();
   const { data: session } = useSession();

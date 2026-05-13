@@ -7,6 +7,8 @@ import Image from "next/image";
 import { Mail, Key, Code, Lock, PlayCircle, CheckCircle2, MessageSquare } from "lucide-react";
 import { trpc } from "@/lib/trpc/client";
 
+export const dynamic = 'force-dynamic';
+
 export default function ModulesPage() {
   const { data: stats } = trpc.getUserStats.useQuery();
 

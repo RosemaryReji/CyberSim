@@ -6,6 +6,8 @@ import { trpc } from "@/lib/trpc/client";
 import { getSocket } from "@/lib/socket";
 import { useState, useEffect } from "react";
 
+export const dynamic = 'force-dynamic';
+
 export default function DashboardPage() {
   const { data: stats, isLoading, error } = trpc.getUserStats.useQuery();
   const [isConnected, setIsConnected] = useState(false);
